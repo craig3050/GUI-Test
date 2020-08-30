@@ -146,6 +146,45 @@
      <string/>
     </property>
    </widget>
+   <widget class="QLineEdit" name="lineEdit_enter_endtext">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>191</y>
+      <width>250</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_enter_endtext">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>171</y>
+      <width>230</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. &amp;quot;Your_Filename&amp;quot; becomes &amp;quot;Additional Text Your Filename&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>Enter text to add to the end of the filename:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_enter_endtext">
+    <property name="geometry">
+     <rect>
+      <x>264</x>
+      <y>190</y>
+      <width>74</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Preview</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

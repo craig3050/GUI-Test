@@ -61,6 +61,15 @@ class Ui_MainWindow(object):
         self.label_pathname.setGeometry(QtCore.QRect(10, 80, 311, 20))
         self.label_pathname.setText("")
         self.label_pathname.setObjectName("label_pathname")
+        self.lineEdit_enter_endtext = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_enter_endtext.setGeometry(QtCore.QRect(11, 191, 250, 20))
+        self.lineEdit_enter_endtext.setObjectName("lineEdit_enter_endtext")
+        self.label_enter_endtext = QtWidgets.QLabel(self.centralwidget)
+        self.label_enter_endtext.setGeometry(QtCore.QRect(11, 171, 230, 21))
+        self.label_enter_endtext.setObjectName("label_enter_endtext")
+        self.pushButton_enter_endtext = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_enter_endtext.setGeometry(QtCore.QRect(264, 190, 74, 23))
+        self.pushButton_enter_endtext.setObjectName("pushButton_enter_endtext")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 934, 21))
@@ -90,6 +99,10 @@ class Ui_MainWindow(object):
         self.pushButton_enter_beginningtext.setText(_translate("MainWindow", "Preview"))
         self.label_enter_beginningtext.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Additional Text Your Filename&quot;</p></body></html>"))
         self.label_enter_beginningtext.setText(_translate("MainWindow", "Enter text to add to the start of the filename:"))
+        self.label_enter_endtext.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Additional Text Your Filename&quot;</p></body></html>"))
+        self.label_enter_endtext.setText(_translate("MainWindow", "Enter text to add to the end of the filename:"))
+        self.pushButton_enter_endtext.setText(_translate("MainWindow", "Preview"))
+
 
 ###
     def enter_path(self):
@@ -126,8 +139,9 @@ class Ui_MainWindow(object):
         self.listWidget.clear()
 
         for item in main_file_list:
-            current_text = main_file_list[item]
-            update_text = f'{current_text}{end_text}'
+            file_extension = item.split(".")[-1]
+            current_text = main_file_list[item].split(".")[0]
+            update_text = f'{current_text}{end_text}.{file_extension}'
             main_file_list[item] = update_text
             print(main_file_list[item])
 

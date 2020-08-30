@@ -16,15 +16,14 @@ import os
 main_file_list = {}
 ###
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(758, 589)
+        MainWindow.resize(934, 583)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(340, 10, 401, 531))
+        self.listWidget.setGeometry(QtCore.QRect(340, 10, 581, 531))
         self.listWidget.setObjectName("listWidget")
         self.Title_lablel = QtWidgets.QLabel(self.centralwidget)
         self.Title_lablel.setGeometry(QtCore.QRect(20, 10, 271, 41))
@@ -64,7 +63,7 @@ class Ui_MainWindow(object):
         self.label_pathname.setObjectName("label_pathname")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 758, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 934, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -107,11 +106,16 @@ class Ui_MainWindow(object):
 
     def enter_beginningtext(self):
         beginning_text = self.lineEdit_enter_beginningtext.text()
-        #self.listWidget.addItem(beginning_text)
         self.listWidget.clear()
 
-        for file_name in main_file_list:
-            self.listWidget.addItem(file_name)
+        for item in main_file_list:
+            update_text = f'{beginning_text}{item}'
+            main_file_list[item] = update_text
+            print(main_file_list[item])
+
+        for key, values in main_file_list.items():
+            text_to_print = f'{key} =====> {values}'
+            self.listWidget.addItem(text_to_print)
 
         return
 

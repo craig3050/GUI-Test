@@ -185,6 +185,87 @@
      <string>Preview</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="lineEdit_enter_replace_text_before">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>239</y>
+      <width>201</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_enter_replace_text">
+    <property name="geometry">
+     <rect>
+      <x>264</x>
+      <y>240</y>
+      <width>74</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Preview</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_enter_replace_text">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>219</y>
+      <width>230</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. &amp;quot;Your_Filename&amp;quot; becomes &amp;quot;Additional Text Your Filename&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>Replace text within a filename:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_enter_replace_text_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>237</y>
+      <width>41</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. &amp;quot;Your_Filename&amp;quot; becomes &amp;quot;Additional Text Your Filename&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>Before</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_enter_replace_text_after">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>262</y>
+      <width>201</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_enter_replace_text_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>260</y>
+      <width>41</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. &amp;quot;Your_Filename&amp;quot; becomes &amp;quot;Additional Text Your Filename&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>After</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -98,7 +98,7 @@ class Ui_MainWindow(object):
         self.label_pathname.setText(file_path)
         self.listWidget.clear()
         for file_name in os.listdir(file_path):
-            main_file_list[file_name] = ""
+            main_file_list[file_name] = file_name
         for file_name in main_file_list:
             self.listWidget.addItem(file_name)
         return
@@ -109,7 +109,8 @@ class Ui_MainWindow(object):
         self.listWidget.clear()
 
         for item in main_file_list:
-            update_text = f'{beginning_text}{item}'
+            current_text = main_file_list[item]
+            update_text = f'{beginning_text}{current_text}'
             main_file_list[item] = update_text
             print(main_file_list[item])
 

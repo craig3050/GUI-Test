@@ -14,6 +14,7 @@ from PyQt5.QtGui import QIcon
 import os
 
 main_file_list = {}
+file_path = ""
 ###
 
 class Ui_MainWindow(object):
@@ -131,9 +132,9 @@ class Ui_MainWindow(object):
 
 ###
     def enter_path(self):
+        global file_path
         main_file_list.clear()
         file_path = QFileDialog.getExistingDirectory(None, "Open a folder", "C:\\", QFileDialog.ShowDirsOnly)
-        #file_path = self.open_dialog_box()
         self.label_pathname.setText(file_path)
         self.listWidget.clear()
         for file_name in os.listdir(file_path):
@@ -151,13 +152,13 @@ class Ui_MainWindow(object):
             current_text = main_file_list[item]
             update_text = f'{beginning_text}{current_text}'
             main_file_list[item] = update_text
-            print(main_file_list[item])
 
         for key, values in main_file_list.items():
             text_to_print = f'{key} =====> {values}'
             self.listWidget.addItem(text_to_print)
 
         return
+
 
     def enter_endtext(self):
         end_text = self.lineEdit_enter_endtext.text()
@@ -174,6 +175,7 @@ class Ui_MainWindow(object):
             self.listWidget.addItem(text_to_print)
 
         return
+
 
     def enter_replace_text(self):
         replace_text_before = self.lineEdit_enter_replace_text_before.text()

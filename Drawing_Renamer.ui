@@ -374,7 +374,7 @@
      <rect>
       <x>10</x>
       <y>420</y>
-      <width>101</width>
+      <width>150</width>
       <height>41</height>
      </rect>
     </property>
@@ -398,27 +398,14 @@
    <widget class="QPushButton" name="pushButton_enter_excel_export_2">
     <property name="geometry">
      <rect>
-      <x>122</x>
+      <x>180</x>
       <y>420</y>
-      <width>101</width>
+      <width>150</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
      <string>2.Import</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_enter_excel_export_3">
-    <property name="geometry">
-     <rect>
-      <x>233</x>
-      <y>420</y>
-      <width>101</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>3.Rename</string>
     </property>
    </widget>
   </widget>

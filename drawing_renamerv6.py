@@ -15,6 +15,9 @@ from PyQt5.QtGui import QIcon
 import os
 import pdfplumber
 import re
+from openpyxl import Workbook
+from openpyxl import load_workbook
+import time
 
 main_file_list = {}
 file_path = ""
@@ -32,7 +35,7 @@ class Ui_MainWindow(object):
         self.Title_lablel = QtWidgets.QLabel(self.centralwidget)
         self.Title_lablel.setGeometry(QtCore.QRect(20, 10, 271, 41))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(16)
         font.setBold(True)
         font.setUnderline(True)
         font.setWeight(75)
@@ -123,7 +126,7 @@ class Ui_MainWindow(object):
         self.label_enter_endtext_3.setWordWrap(True)
         self.label_enter_endtext_3.setObjectName("label_enter_endtext_3")
         self.pushButton_enter_excel_export = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_enter_excel_export.setGeometry(QtCore.QRect(10, 420, 101, 41))
+        self.pushButton_enter_excel_export.setGeometry(QtCore.QRect(10, 420, 150, 41))
         self.pushButton_enter_excel_export.setObjectName("pushButton_enter_excel_export")
         self.line = QtWidgets.QFrame(self.centralwidget)
         self.line.setGeometry(QtCore.QRect(17, 470, 311, 20))
@@ -131,11 +134,8 @@ class Ui_MainWindow(object):
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
         self.pushButton_enter_excel_export_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_enter_excel_export_2.setGeometry(QtCore.QRect(122, 420, 101, 41))
+        self.pushButton_enter_excel_export_2.setGeometry(QtCore.QRect(180, 420, 150, 41))
         self.pushButton_enter_excel_export_2.setObjectName("pushButton_enter_excel_export_2")
-        self.pushButton_enter_excel_export_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_enter_excel_export_3.setGeometry(QtCore.QRect(233, 420, 101, 41))
-        self.pushButton_enter_excel_export_3.setObjectName("pushButton_enter_excel_export_3")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 934, 21))
@@ -158,6 +158,8 @@ class Ui_MainWindow(object):
         self.pushButton_enter_replace_text.clicked.connect(self.enter_replace_text)
         self.pushButton_enter_titleblock_search.clicked.connect(self.enter_titleblock_search)
         self.pushButton_rename.clicked.connect(self.rename_file)
+        self.pushButton_enter_excel_export.clicked.connect(self.excel_list_export)
+        self.pushButton_enter_excel_export_2.clicked.connect(self.excel_list_import)
         ### END ###
 
         self.retranslateUi(MainWindow)
@@ -166,7 +168,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.Title_lablel.setText(_translate("MainWindow", "Drawing Renamer V1"))
+        self.Title_lablel.setText(_translate("MainWindow", "Craig's Drawing Renamer"))
         self.label_enter_path.setToolTip(_translate("MainWindow",
                                                     "<html><head/><body><p>e.g. \'C:/Users/Craig/Desktop/Foldername\'</p></body></html>"))
         self.label_enter_path.setText(_translate("MainWindow", "Open the folder with the files to rename:"))
@@ -205,7 +207,6 @@ class Ui_MainWindow(object):
         self.label_enter_endtext_3.setText(_translate("MainWindow", "Use Excel to rename the files:"))
         self.pushButton_enter_excel_export.setText(_translate("MainWindow", "1.Export"))
         self.pushButton_enter_excel_export_2.setText(_translate("MainWindow", "2.Import"))
-        self.pushButton_enter_excel_export_3.setText(_translate("MainWindow", "3.Rename"))
         self.menuAbout.setTitle(_translate("MainWindow", "About"))
         self.actionAuthor.setText(_translate("MainWindow", "Author"))
 
@@ -262,7 +263,7 @@ class Ui_MainWindow(object):
             current_text = main_file_list[item]
             update_text = current_text.replace(replace_text_before, replace_text_after)
             main_file_list[item] = update_text
-            print(main_file_list[item])
+            #print(main_file_list[item])
 
         for key, values in main_file_list.items():
             text_to_print = f'{key} =====> {values}'
@@ -285,14 +286,13 @@ class Ui_MainWindow(object):
 
             try:
                 # Open the file and extract text with PyPDF2
+                # Open the file and extract text with PyPDF2
                 with pdfplumber.open(full_file_path) as pdf:
                     full_text = ""
                     pages = pdf.pages
                     for i, pg in enumerate(pages):
                         text = pages[i].extract_text()
                         full_text += text
-                    # first_page = pdf.pages[0]
-                    # print(first_page.extract_text())
 
                     # Convert the sample filename into regex search and search the extracted text
                     output_text = ""
@@ -320,9 +320,8 @@ class Ui_MainWindow(object):
 
             # If it all goes wrong leave filename as is
             except Exception as e:
-                print(e)
                 main_file_list[item] = item
-                self.listWidget.addItem(item)
+                self.listWidget.addItem(e)
 
         self.listWidget.clear()
         self.listWidget.addItem("Search Complete:")
@@ -344,41 +343,67 @@ class Ui_MainWindow(object):
             text_to_print = f'{old_file_name} =====> {new_file_name}'
             self.listWidget.addItem(text_to_print)
 
-    # def excel_list(file_path):
-    #     drawing_list = Workbook()
-    #     worksheet_1 = drawing_list.active
-    #     drawing_list.save("Drawing_list.xlsx")
-    #     row_number = 1
-    #     for file_name in os.listdir(file_path):
-    #         file_name_no_extension = ""
-    #         for char in file_name:
-    #             if char != ".":
-    #                 file_name_no_extension += char
-    #             else:
-    #                 break
-    #         file_extension = file_name.split(".")[-1]
-    #         worksheet_1.cell(row=row_number, column=1).value = file_name_no_extension
-    #         worksheet_1.cell(row=row_number, column=2).value = file_extension
-    #         row_number += 1
-    #     drawing_list.save("Drawing_list.xlsx")
-    #     print("The drawing list has been written to the same directory as the script")
-    #     print("Add your drawings into column C")
-    #     # break before writing the new numbers
-    #     continue_on()
-    #
-    #     drawing_list = load_workbook("Drawing_list.xlsx")
-    #     worksheet_1 = drawing_list.active
-    #     # rename the files
-    #     for i in range(1, row_number):
-    #         old_file_name = worksheet_1.cell(row=i, column=1).value
-    #         print(old_file_name)
-    #         file_extension = worksheet_1.cell(row=i, column=2).value
-    #         print(file_extension)
-    #         new_file_name = worksheet_1.cell(row=i, column=3).value
-    #         print(new_file_name)
-    #         print("Old = " + old_file_name + ",  New = " + new_file_name)
-    #         old_file_name = file_path + "/" + old_file_name + "." + file_extension
-    #         RenameFile(old_file_name, new_file_name)
+    def excel_list_export(self):
+        try:
+            drawing_list = Workbook()
+            worksheet_1 = drawing_list.active
+            drawing_list_file_path = file_path + "/" + "Drawing_List.xlsx"
+            drawing_list.save(drawing_list_file_path)
+            row_number = 1
+            self.listWidget.clear()
+            self.listWidget.addItem("Saving files to excel sheet...")
+            for key, values in main_file_list.items():
+                file_name_no_extension = ""
+                for char in key:
+                    if char != ".":
+                        file_name_no_extension += char
+                    else:
+                        break
+                file_extension = key.split(".")[-1]
+                worksheet_1.cell(row=row_number, column=1).value = file_name_no_extension
+                worksheet_1.cell(row=row_number, column=2).value = file_extension
+                row_number += 1
+            drawing_list.save(drawing_list_file_path)
+            self.listWidget.clear()
+            self.listWidget.addItem("Excel file called \'Drawing_list\' has been saved in the same folder as the drawings")
+            self.listWidget.addItem("\n\nAdd your new drawing numbers into Column C")
+            self.listWidget.addItem("\n\nOnce complete make sure the file is closed, then press \'2.Import\'")
+
+        except Exception as e:
+            self.listWidget.clear()
+            self.listWidget.addItem("Something has gone wrong - see exception below:\n\n")
+            self.listWidget.addItem(e)
+
+    def excel_list_import(self):
+        try:
+            drawing_list = Workbook()
+            worksheet_1 = drawing_list.active
+            drawing_list_file_path = file_path + "/" + "Drawing_List.xlsx"
+            drawing_list = load_workbook(drawing_list_file_path)
+            worksheet_1 = drawing_list.active
+            row_number = worksheet_1.max_row
+            row_number += 1 # to adjust the count as it starts from 0
+
+            for i in range(1, row_number):
+                old_file_name = worksheet_1.cell(row=i, column=1).value
+                file_extension = worksheet_1.cell(row=i, column=2).value
+                new_file_name = worksheet_1.cell(row=i, column=3).value
+                old_file_name_plus_extension = old_file_name + "." + file_extension
+                new_file_name_plus_extension = new_file_name + "." + file_extension
+                main_file_list[old_file_name_plus_extension] = new_file_name_plus_extension
+
+            self.listWidget.clear()
+            self.listWidget.addItem("Displaying Values:\n")
+
+            for key, values in main_file_list.items():
+                text_to_print = f'{key} =====> {values}'
+                self.listWidget.addItem(text_to_print)
+
+        except Exception as e:
+            self.listWidget.clear()
+            self.listWidget.addItem("Something has gone wrong - see exception below:\n\n")
+            self.listWidget.addItem(e)
+
 
 
 if __name__ == "__main__":
@@ -389,6 +414,7 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    time.sleep(0.1)
     sys.exit(app.exec_())
 
 ### END ###

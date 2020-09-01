@@ -8,7 +8,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-###
+
+### START ###
 from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog
 from PyQt5.QtGui import QIcon
 import os
@@ -17,7 +18,7 @@ import re
 
 main_file_list = {}
 file_path = ""
-###
+### END ###
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -150,13 +151,14 @@ class Ui_MainWindow(object):
         self.menuAbout.addAction(self.actionAuthor)
         self.menubar.addAction(self.menuAbout.menuAction())
 
-        ###
+        ### START ###
         self.pushButton_enter_path.clicked.connect(self.enter_path)
         self.pushButton_enter_beginningtext.clicked.connect(self.enter_beginningtext)
         self.pushButton_enter_endtext.clicked.connect(self.enter_endtext)
         self.pushButton_enter_replace_text.clicked.connect(self.enter_replace_text)
         self.pushButton_enter_titleblock_search.clicked.connect(self.enter_titleblock_search)
-        ###
+        self.pushButton_rename.clicked.connect(self.rename_file)
+        ### END ###
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -165,31 +167,41 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.Title_lablel.setText(_translate("MainWindow", "Drawing Renamer V1"))
-        self.label_enter_path.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. \'C:/Users/Craig/Desktop/Foldername\'</p></body></html>"))
+        self.label_enter_path.setToolTip(_translate("MainWindow",
+                                                    "<html><head/><body><p>e.g. \'C:/Users/Craig/Desktop/Foldername\'</p></body></html>"))
         self.label_enter_path.setText(_translate("MainWindow", "Open the folder with the files to rename:"))
         self.pushButton_enter_path.setText(_translate("MainWindow", "Open"))
         self.pushButton_rename.setText(_translate("MainWindow", "Rename"))
         self.pushButton_enter_beginningtext.setText(_translate("MainWindow", "Preview"))
-        self.label_enter_beginningtext.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Additional Text Your Filename&quot;</p></body></html>"))
-        self.label_enter_beginningtext.setText(_translate("MainWindow", "Enter text to add to the start of the filename:"))
+        self.label_enter_beginningtext.setToolTip(_translate("MainWindow",
+                                                             "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Additional Text Your Filename&quot;</p></body></html>"))
+        self.label_enter_beginningtext.setText(
+            _translate("MainWindow", "Enter text to add to the start of the filename:"))
         self.label_pathname.setText(_translate("MainWindow", "<<Filepath>>"))
-        self.label_enter_endtext.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Your Filename Additional Text&quot;</p></body></html>"))
+        self.label_enter_endtext.setToolTip(_translate("MainWindow",
+                                                       "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Your Filename Additional Text&quot;</p></body></html>"))
         self.label_enter_endtext.setText(_translate("MainWindow", "Enter text to add to the end of the filename:"))
         self.pushButton_enter_endtext.setText(_translate("MainWindow", "Preview"))
         self.pushButton_enter_replace_text.setText(_translate("MainWindow", "Preview"))
-        self.label_enter_replace_text.setToolTip(_translate("MainWindow", "<html><head/><body><p>Leave the \'after\' box blank if you want text deleted from the filename</p></body></html>"))
+        self.label_enter_replace_text.setToolTip(_translate("MainWindow",
+                                                            "<html><head/><body><p>Leave the \'after\' box blank if you want text deleted from the filename</p></body></html>"))
         self.label_enter_replace_text.setText(_translate("MainWindow", "Replace text within a filename:"))
-        self.label_enter_replace_text_2.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Additional Text Your Filename&quot;</p></body></html>"))
+        self.label_enter_replace_text_2.setToolTip(_translate("MainWindow",
+                                                              "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Additional Text Your Filename&quot;</p></body></html>"))
         self.label_enter_replace_text_2.setText(_translate("MainWindow", "Before"))
-        self.label_enter_replace_text_3.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Additional Text Your Filename&quot;</p></body></html>"))
+        self.label_enter_replace_text_3.setToolTip(_translate("MainWindow",
+                                                              "<html><head/><body><p>e.g. &quot;Your_Filename&quot; becomes &quot;Additional Text Your Filename&quot;</p></body></html>"))
         self.label_enter_replace_text_3.setText(_translate("MainWindow", "After"))
         self.Title_lablel_2.setText(_translate("MainWindow", "Or"))
         self.Title_lablel_3.setText(_translate("MainWindow", "Or"))
         self.lineEdit_enter_titleblock_search.setText(_translate("MainWindow", "<<Enter Sample Drawing Number>>"))
         self.pushButton_enter_titleblock_search.setText(_translate("MainWindow", "Preview"))
-        self.label_enter_titleblock_search.setToolTip(_translate("MainWindow", "<html><head/><body><p>Enter a sample drawing number as the programme searches for the same format</p></body></html>"))
-        self.label_enter_titleblock_search.setText(_translate("MainWindow", "Attempt to rename the file automatically from the title block:"))
-        self.label_enter_endtext_3.setToolTip(_translate("MainWindow", "<html><head/><body><p>Enter a sample drawing number as the programme searches for the same format</p></body></html>"))
+        self.label_enter_titleblock_search.setToolTip(_translate("MainWindow",
+                                                                 "<html><head/><body><p>Enter a sample drawing number as the programme searches for the same format</p></body></html>"))
+        self.label_enter_titleblock_search.setText(
+            _translate("MainWindow", "Attempt to rename the file automatically from the title block:"))
+        self.label_enter_endtext_3.setToolTip(_translate("MainWindow",
+                                                         "<html><head/><body><p>Enter a sample drawing number as the programme searches for the same format</p></body></html>"))
         self.label_enter_endtext_3.setText(_translate("MainWindow", "Use Excel to rename the files:"))
         self.pushButton_enter_excel_export.setText(_translate("MainWindow", "1.Export"))
         self.pushButton_enter_excel_export_2.setText(_translate("MainWindow", "2.Import"))
@@ -197,7 +209,7 @@ class Ui_MainWindow(object):
         self.menuAbout.setTitle(_translate("MainWindow", "About"))
         self.actionAuthor.setText(_translate("MainWindow", "Author"))
 
-###
+    ### START ###
     def enter_path(self):
         global file_path
         main_file_list.clear()
@@ -209,7 +221,6 @@ class Ui_MainWindow(object):
         for file_name in main_file_list:
             self.listWidget.addItem(file_name)
         return
-
 
     def enter_beginningtext(self):
         beginning_text = self.lineEdit_enter_beginningtext.text()
@@ -226,7 +237,6 @@ class Ui_MainWindow(object):
 
         return
 
-
     def enter_endtext(self):
         end_text = self.lineEdit_enter_endtext.text()
         self.listWidget.clear()
@@ -242,7 +252,6 @@ class Ui_MainWindow(object):
             self.listWidget.addItem(text_to_print)
 
         return
-
 
     def enter_replace_text(self):
         replace_text_before = self.lineEdit_enter_replace_text_before.text()
@@ -261,20 +270,21 @@ class Ui_MainWindow(object):
 
         return
 
-
     def enter_titleblock_search(self):
         # rename the file based on what is in the titleblock
         global file_path
         sample_drawing_number = self.lineEdit_enter_titleblock_search.text()
         self.listWidget.clear()
+        self.listWidget.addItem("Please wait - this may take a while...")
+        self.listWidget.addItem("Do not close window until complete - new drawings will list as they are found")
 
-        #open each file in the list and extract text
+        # open each file in the list and extract text
         for item in main_file_list:
             file_extension = item.split(".")[-1]
             full_file_path = f'{file_path}/{item}'
 
             try:
-                #Open the file and extract text with PyPDF2
+                # Open the file and extract text with PyPDF2
                 with pdfplumber.open(full_file_path) as pdf:
                     full_text = ""
                     pages = pdf.pages
@@ -283,10 +293,8 @@ class Ui_MainWindow(object):
                         full_text += text
                     # first_page = pdf.pages[0]
                     # print(first_page.extract_text())
-                    print(full_text)
 
-
-                    #Convert the sample filename into regex search and search the extracted text
+                    # Convert the sample filename into regex search and search the extracted text
                     output_text = ""
                     regex_variable = "."
                     for char in sample_drawing_number:
@@ -305,13 +313,19 @@ class Ui_MainWindow(object):
                     number_of_regex_groups = len(regex_results) - 1
                     best_guess_drawing_number = regex_results[number_of_regex_groups]
 
-                #Add the best guess to drawing number
+                # Add the best guess to drawing number
                 main_file_list[item] = f'{best_guess_drawing_number}.{file_extension}'
+                self.listWidget.addItem(best_guess_drawing_number)
+                QtCore.QCoreApplication.processEvents()
 
-            #If it all goes wrong leave filename as is
+            # If it all goes wrong leave filename as is
             except Exception as e:
                 print(e)
                 main_file_list[item] = item
+                self.listWidget.addItem(item)
+
+        self.listWidget.clear()
+        self.listWidget.addItem("Search Complete:")
 
         for key, values in main_file_list.items():
             text_to_print = f'{key} =====> {values}'
@@ -319,10 +333,57 @@ class Ui_MainWindow(object):
 
         return
 
+    def rename_file(self):
+        self.listWidget.clear()
+        self.listWidget.addItem("Renaming files")
+        for key, values in main_file_list.items():
+            new_file_name = file_path + "/" + values
+            old_file_name = file_path + "/" + key
+            os.rename(old_file_name, new_file_name)
+            self.listWidget.addItem("Renaming files")
+            text_to_print = f'{old_file_name} =====> {new_file_name}'
+            self.listWidget.addItem(text_to_print)
+
+    # def excel_list(file_path):
+    #     drawing_list = Workbook()
+    #     worksheet_1 = drawing_list.active
+    #     drawing_list.save("Drawing_list.xlsx")
+    #     row_number = 1
+    #     for file_name in os.listdir(file_path):
+    #         file_name_no_extension = ""
+    #         for char in file_name:
+    #             if char != ".":
+    #                 file_name_no_extension += char
+    #             else:
+    #                 break
+    #         file_extension = file_name.split(".")[-1]
+    #         worksheet_1.cell(row=row_number, column=1).value = file_name_no_extension
+    #         worksheet_1.cell(row=row_number, column=2).value = file_extension
+    #         row_number += 1
+    #     drawing_list.save("Drawing_list.xlsx")
+    #     print("The drawing list has been written to the same directory as the script")
+    #     print("Add your drawings into column C")
+    #     # break before writing the new numbers
+    #     continue_on()
+    #
+    #     drawing_list = load_workbook("Drawing_list.xlsx")
+    #     worksheet_1 = drawing_list.active
+    #     # rename the files
+    #     for i in range(1, row_number):
+    #         old_file_name = worksheet_1.cell(row=i, column=1).value
+    #         print(old_file_name)
+    #         file_extension = worksheet_1.cell(row=i, column=2).value
+    #         print(file_extension)
+    #         new_file_name = worksheet_1.cell(row=i, column=3).value
+    #         print(new_file_name)
+    #         print("Old = " + old_file_name + ",  New = " + new_file_name)
+    #         old_file_name = file_path + "/" + old_file_name + "." + file_extension
+    #         RenameFile(old_file_name, new_file_name)
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
@@ -330,4 +391,4 @@ if __name__ == "__main__":
     MainWindow.show()
     sys.exit(app.exec_())
 
-###
+### END ###
